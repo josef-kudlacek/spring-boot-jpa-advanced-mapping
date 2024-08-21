@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class AppDAOImpl implements  AppDAO {
+public class AppDAOImpl implements AppDAO {
 
     private EntityManager entityManager;
 
@@ -18,5 +18,10 @@ public class AppDAOImpl implements  AppDAO {
     @Transactional
     public void save(Instructor instructor) {
         entityManager.persist(instructor);
+    }
+
+    @Override
+    public Instructor findInstructorById(int id) {
+        return entityManager.find(Instructor.class, id);
     }
 }
