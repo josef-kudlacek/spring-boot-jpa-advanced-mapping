@@ -1,6 +1,7 @@
 package eu.kudljo.cruddemo;
 
 import eu.kudljo.cruddemo.dao.AppDAO;
+import eu.kudljo.cruddemo.entity.Course;
 import eu.kudljo.cruddemo.entity.Instructor;
 import eu.kudljo.cruddemo.entity.InstructorDetail;
 import org.springframework.boot.CommandLineRunner;
@@ -22,8 +23,34 @@ public class CruddemoApplication {
 //			findInstructor(appDAO);
 //			deleteInstructor(appDAO);
 //			findInstructorDetail(appDAO);
-			deleteInstructorDetail(appDAO);
+//			deleteInstructorDetail(appDAO);
+			createInstructorWithCourses(appDAO);
 		};
+	}
+
+	private void createInstructorWithCourses(AppDAO appDAO) {
+		Instructor instructor =
+				new Instructor("Susan", "Public", "susan.public@luv2code.com");
+
+		InstructorDetail instructorDetail =
+				new InstructorDetail(
+						"http://www.youtube.com",
+						"Video Games"
+				);
+
+		instructor.setInstructorDetail(instructorDetail);
+
+		Course course1 = new Course("Air Guitar - The Ultimate Guide");
+		Course course2 = new Course("The Pinball Masterclass");
+
+		instructor.add(course1);
+		instructor.add(course2);
+
+		System.out.println("Saving instructor:" + instructor);
+		System.out.println("The courses: " + instructor.getCourses());
+
+		// thanks to CascadeType.PERSIST are courses save also
+		appDAO.save(instructor);
 	}
 
 	private void deleteInstructorDetail(AppDAO appDAO) {
