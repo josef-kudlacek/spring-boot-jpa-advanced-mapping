@@ -3,6 +3,7 @@ package eu.kudljo.cruddemo.dao;
 import eu.kudljo.cruddemo.entity.Course;
 import eu.kudljo.cruddemo.entity.Instructor;
 import eu.kudljo.cruddemo.entity.InstructorDetail;
+import eu.kudljo.cruddemo.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
@@ -140,6 +141,19 @@ public class AppDAOImpl implements AppDAO {
         );
 
         query.setParameter("courseId", courseId);
+
+        return query.getSingleResult();
+    }
+
+    @Override
+    public Student findStudentAndCoursesByStudentId(int studentId) {
+        TypedQuery<Student> query = entityManager.createQuery(
+                "select s from Student s " +
+                        "JOIN FETCH s.courses " +
+                        " where s.id = :studentId", Student.class
+        );
+
+        query.setParameter("studentId", studentId);
 
         return query.getSingleResult();
     }

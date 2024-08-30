@@ -3,6 +3,7 @@ package eu.kudljo.cruddemo.dao;
 import eu.kudljo.cruddemo.entity.Course;
 import eu.kudljo.cruddemo.entity.Instructor;
 import eu.kudljo.cruddemo.entity.InstructorDetail;
+import eu.kudljo.cruddemo.entity.Student;
 
 import java.util.List;
 
@@ -35,4 +36,6 @@ public interface AppDAO {
     Course findCourseAndReviewsByCourseId(int courseId);
 
     Course findCourseAndStudentsByCourseId(int courseId);
+
+    Student findStudentAndCoursesByStudentId(int studentId);
 }
